@@ -1,7 +1,6 @@
-package model;
+package models;
 
 import interfaces.Bayar;
-import java.io.*;
 import java.util.*;
 
 public class Pembeli extends User implements Bayar {

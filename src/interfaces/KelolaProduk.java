@@ -1,6 +1,6 @@
 package interfaces;
 
-import model.Produk;
+import models.Produk;
 
 public interface KelolaProduk {
     void tambahProduk(Produk produk);

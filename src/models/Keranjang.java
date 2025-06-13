@@ -1,4 +1,4 @@
-package model;
+package models;
 
 import java.util.*;
 
@@ -48,6 +48,10 @@ public class Keranjang {
 
     public Map<Produk, Integer> getDaftarProduk() {
         return daftarProduk;
+    }
+
+    public String getIdPembeli() {
+        return idPembeli;
     }
 
     public void clearKeranjang() {

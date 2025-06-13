@@ -1,10 +1,7 @@
-package model;
+package models;
 
-import java.io.*;
 import java.util.*;
 import interfaces.KelolaProduk;
-import model.Produk;
-import model.User;
 
 public class Penjual extends User implements KelolaProduk {
     private List<Produk> daftarProdukDijual;
