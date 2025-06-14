@@ -37,36 +37,23 @@ class User {
     +logout()
 }
 class Pembeli {
-    #id: String
-    #nama: String
-    #email: String
-    #password: String
-    #alamat: String
-    #noTelp: String
     +login()
     +logout()
-    +checkout()
-    +bayar()
+    +getKeranjang(): Keranjang
 }
 class Penjual {
-    #id: String
-    #nama: String
-    #email: String
-    #password: String
-    #alamat: String
-    #noTelp: String
     +login()
     +logout()
-    +kelolaProduk()
 }
 class Bayar {
     <<interface>>
-    +bayar()
+    +prosesPembayaran(jumlah: double)
 }
 class KelolaProduk {
     <<interface>>
-    +tambahProduk()
-    +hapusProduk()
+    +tambahProduk(produk: Produk)
+    +editProduk(produkUpdate: Produk)
+    +hapusProduk(idProduk: String)
 }
 class Produk {
     -idProduk: String
@@ -76,25 +63,31 @@ class Produk {
     -idPenjual: String
 }
 class Transaksi {
-    +id: String
-    +total: Float
-    +tanggal: Date
-    +bayar()
+    -idTransaksi: String
+    -idPembeli: String
+    -tanggalTransaksi: Date
+    -totalBayar: double
+    -daftarProduk: List<Produk>
+    +hitungTotal(): double
 }
 class Keranjang {
-    +tambahProduk(p: Produk)
-    +hapusProduk(p: Produk)
-    +getTotal(): Float
+    -idPembeli: String
+    -daftarProduk: Map<Produk, Integer>
+    +tambahProduk(produk: Produk, jumlah: int)
+    +hapusProduk(produk: Produk)
+    +lihatKeranjang()
+    +hitungTotalKeranjang(): double
+    +clearKeranjang()
 }
 User <|-- Pembeli
 User <|-- Penjual
 Pembeli ..|> Bayar
 Penjual ..|> KelolaProduk
-Pembeli --> Keranjang
-Keranjang --> Produk
+Penjual "1" *-- "*" Produk
+Pembeli "1" *-- "1" Keranjang
+Keranjang "1" *-- "*" Produk
+Transaksi "1" *-- "*" Produk
 Transaksi --> Pembeli
-Transaksi --> Produk
-
 ```
 
 ---
