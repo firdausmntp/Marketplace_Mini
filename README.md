@@ -1,3 +1,4 @@
+
 # 🛒 Marketplace Mini
 
 Marketplace Mini adalah aplikasi sederhana berbasis Java yang memungkinkan pengguna untuk:
@@ -89,6 +90,39 @@ Keranjang "1" *-- "*" Produk
 Transaksi "1" *-- "*" Produk
 Transaksi --> Pembeli
 ```
+
+---
+
+## 🧾 Penjelasan Class Diagram
+
+### 📦 Kelas & Interface
+
+| Nama | Tipe | Deskripsi | Atribut | Metode |
+|------|------|-----------|---------|--------|
+| `User` | Abstract Class | Kelas dasar semua pengguna | `id`, `nama`, `email`, `password`, `alamat`, `noTelp` | `login()`, `logout()` |
+| `Pembeli` | Subclass `User` | Pengguna yang membeli | - | `getKeranjang()`, `login()`, `logout()` |
+| `Penjual` | Subclass `User` | Pengguna yang menjual produk | - | `login()`, `logout()` |
+| `Bayar` | Interface | Kontrak pembayaran | - | `prosesPembayaran(jumlah)` |
+| `KelolaProduk` | Interface | Kontrak pengelolaan produk | - | `tambahProduk()`, `editProduk()`, `hapusProduk()` |
+| `Produk` | Class | Barang yang dijual | `idProduk`, `namaProduk`, `harga`, `stok`, `idPenjual` | - |
+| `Keranjang` | Class | Keranjang belanja pembeli | `idPembeli`, `daftarProduk: Map<Produk, Integer>` | `tambahProduk()`, `hapusProduk()`, `lihatKeranjang()`, `hitungTotalKeranjang()`, `clearKeranjang()` |
+| `Transaksi` | Class | Pembelian oleh pembeli | `idTransaksi`, `idPembeli`, `tanggalTransaksi`, `totalBayar`, `daftarProduk` | `hitungTotal()` |
+
+---
+
+### 🔗 Relasi Antar Kelas
+
+| Relasi | Dari | Ke | Jenis | Deskripsi |
+|--------|------|----|-------|-----------|
+| Pewarisan | `Pembeli` | `User` | extends | Pembeli mewarisi User |
+| Pewarisan | `Penjual` | `User` | extends | Penjual mewarisi User |
+| Implementasi | `Pembeli` | `Bayar` | implements | Pembeli bisa melakukan pembayaran |
+| Implementasi | `Penjual` | `KelolaProduk` | implements | Penjual bisa kelola produk |
+| Komposisi | `Penjual` | `Produk` | 1-to-many | Penjual punya banyak produk |
+| Komposisi | `Pembeli` | `Keranjang` | 1-to-1 | Pembeli punya 1 keranjang |
+| Komposisi | `Keranjang` | `Produk` | 1-to-many | Keranjang berisi banyak produk |
+| Komposisi | `Transaksi` | `Produk` | 1-to-many | Transaksi memuat banyak produk |
+| Asosiasi | `Transaksi` | `Pembeli` | many-to-1 | Transaksi dilakukan oleh pembeli |
 
 ---
 
