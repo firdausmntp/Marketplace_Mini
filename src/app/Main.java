@@ -11,9 +11,9 @@ public class Main {
     private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
+        seedData(); // Tambahkan beberapa data awal
         clearScreen();
         printHeader("SELAMAT DATANG DI MARKETPLACE MINI");
-        seedData(); // Tambahkan beberapa data awal
 
         int pilihan;
         do {
@@ -26,7 +26,7 @@ public class Main {
             System.out.println("0. Keluar");
             printSeparator();
             System.out.print("Pilih menu (0-3): ");
-            
+
             try {
                 pilihan = scanner.nextInt();
                 scanner.nextLine(); // Consume newline
@@ -84,7 +84,7 @@ public class Main {
     }
 
     private static void printSeparator() {
-        System.out.println("===============================================");
+        System.out.println("=============================================================");
     }
 
     private static void printHeader(String title) {
@@ -101,28 +101,50 @@ public class Main {
 
     private static void seedData() {
         // Penjual
-        Penjual penjual1 = new Penjual("P001", "Toko A", "tokoa@gmail.com", "password", "Jl. Toko A No. 1", "081234567890");
-        Penjual penjual2 = new Penjual("P002", "Toko B", "tokob@gmail.com", "password", "Jl. Toko B No. 2", "081234567891");
+        Penjual penjual1 = new Penjual("P001", "Toko A", "tokoa@gmail.com", "password", "Jl. Toko A No. 1",
+                "081234567890");
+        Penjual penjual2 = new Penjual("P002", "Toko B", "tokob@gmail.com", "password", "Jl. Toko B No. 2",
+                "081234567891");
         users.add(penjual1);
         users.add(penjual2);
-        
+
         // Produk
-        daftarProdukGlobal.add(new Produk("PR001", "Laptop Gaming", 15000000, 5, penjual1.getId()));
-        daftarProdukGlobal.add(new Produk("PR002", "Mouse Wireless", 250000, 15, penjual1.getId()));
-        daftarProdukGlobal.add(new Produk("PR003", "Keyboard Mechanical", 750000, 8, penjual2.getId()));
+        Produk produk1 = new Produk("PR001", "Laptop Gaming", 15000000, 5, penjual1.getId());
+        Produk produk2 = new Produk("PR002", "Mouse Wireless", 250000, 15, penjual1.getId());
+        Produk produk3 = new Produk("PR003", "Keyboard Mechanical", 750000, 8, penjual2.getId());
+
+        // Tambahkan ke daftar global
+        daftarProdukGlobal.add(produk1);
+        daftarProdukGlobal.add(produk2);
+        daftarProdukGlobal.add(produk3);
+
+        penjual1.tambahProduk(produk1);
+        penjual1.tambahProduk(produk2);
+        penjual2.tambahProduk(produk3);
 
         // Pembeli
-        Pembeli pembeli1 = new Pembeli("PB001", "Ahmad Rizki", "ahmad@gmail.com", "password", "Jl. Merdeka No. 1", "081234567892");
-        Pembeli pembeli2 = new Pembeli("PB002", "Siti Nurhaliza", "siti@gmail.com", "password", "Jl. Sudirman No. 2", "081234567893");
+        Pembeli pembeli1 = new Pembeli("PB001", "Zahra", "zahra@gmail.com", "password", "Jl. Merdeka No. 1",
+                "081234567892");
+        Pembeli pembeli2 = new Pembeli("PB002", "Ahmad", "ahmad@gmail.com", "password", "Jl. Sudirman No. 2",
+                "081234567893");
+        Pembeli pembeli3 = new Pembeli("PB003", "Guna", "guna@gmail.com", "password", "Jl. Gatot Subroto No. 3",
+                "081234567894");
+        Pembeli pembeli4 = new Pembeli("PB004", "Wensen", "wensen@gmail.com", "password", "Jl. Jendral Sudirman No. 4",
+                "081234567895");
+        Pembeli pembeli5 = new Pembeli("PB005", "Bagas", "bagas@gmail.com", "password", "Jl. Diponegoro No. 5",
+                "081234567896");
         users.add(pembeli1);
         users.add(pembeli2);
+        users.add(pembeli3);
+        users.add(pembeli4);
+        users.add(pembeli5);
     }
 
     private static void daftarPembeli() {
         printHeader("PENDAFTARAN PEMBELI");
         System.out.println("Silakan isi data diri Anda:");
         System.out.println();
-        
+
         System.out.print("ID Pembeli        : ");
         String id = scanner.nextLine();
         System.out.print("Nama Lengkap      : ");
@@ -138,7 +160,7 @@ public class Main {
 
         Pembeli newPembeli = new Pembeli(id, nama, email, password, alamat, noTelp);
         users.add(newPembeli);
-        
+
         System.out.println();
         printSeparator();
         System.out.println("[SUCCESS] Pembeli " + nama + " berhasil didaftarkan!");
@@ -149,7 +171,7 @@ public class Main {
         printHeader("PENDAFTARAN PENJUAL");
         System.out.println("Silakan isi data toko Anda:");
         System.out.println();
-        
+
         System.out.print("ID Penjual        : ");
         String id = scanner.nextLine();
         System.out.print("Nama Toko         : ");
@@ -165,7 +187,7 @@ public class Main {
 
         Penjual newPenjual = new Penjual(id, nama, email, password, alamat, noTelp);
         users.add(newPenjual);
-        
+
         System.out.println();
         printSeparator();
         System.out.println("[SUCCESS] Penjual " + nama + " berhasil didaftarkan!");
@@ -176,7 +198,7 @@ public class Main {
         printHeader("LOGIN PENGGUNA");
         System.out.println("Masukkan kredensial Anda:");
         System.out.println();
-        
+
         System.out.print("Email    : ");
         String email = scanner.nextLine();
         System.out.print("Password : ");
@@ -194,7 +216,7 @@ public class Main {
             clearScreen();
             System.out.println("[SUCCESS] Login berhasil! Selamat datang, " + loggedInUser.getNama() + "!");
             loggedInUser.login();
-            
+
             if (loggedInUser instanceof Pembeli) {
                 menuPembeli((Pembeli) loggedInUser);
             } else if (loggedInUser instanceof Penjual) {
@@ -223,7 +245,7 @@ public class Main {
             System.out.println("0. Logout");
             printSeparator();
             System.out.print("Pilih menu (0-4): ");
-            
+
             try {
                 pilihan = scanner.nextInt();
                 scanner.nextLine();
@@ -270,11 +292,11 @@ public class Main {
             System.out.println("[INFO] Belum ada produk tersedia.");
             return;
         }
-        
+
         printHeader("DAFTAR PRODUK TERSEDIA");
         System.out.printf("%-8s %-20s %-15s %-8s %-15s%n", "ID", "Nama Produk", "Harga", "Stok", "Penjual");
         printSeparator();
-        
+
         for (Produk p : daftarProdukGlobal) {
             String namaPenjual = "";
             for (User user : users) {
@@ -283,12 +305,12 @@ public class Main {
                     break;
                 }
             }
-            System.out.printf("%-8s %-20s Rp %-12.0f %-8d %-15s%n", 
-                p.getIdProduk(), 
-                p.getNamaProduk(), 
-                p.getHarga(), 
-                p.getStok(),
-                namaPenjual);
+            System.out.printf("%-8s %-20s Rp %-12.0f %-8d %-15s%n",
+                    p.getIdProduk(),
+                    p.getNamaProduk(),
+                    p.getHarga(),
+                    p.getStok(),
+                    namaPenjual);
         }
         printSeparator();
     }
@@ -298,7 +320,7 @@ public class Main {
         System.out.print("ID Produk yang ingin ditambahkan: ");
         String idProduk = scanner.nextLine();
         System.out.print("Jumlah: ");
-        
+
         int jumlah;
         try {
             jumlah = scanner.nextInt();
@@ -323,7 +345,8 @@ public class Main {
                 produkDipilih.setStok(produkDipilih.getStok() - jumlah);
                 System.out.println();
                 printSeparator();
-                System.out.println("[SUCCESS] " + jumlah + "x " + produkDipilih.getNamaProduk() + " berhasil ditambahkan ke keranjang!");
+                System.out.println("[SUCCESS] " + jumlah + "x " + produkDipilih.getNamaProduk()
+                        + " berhasil ditambahkan ke keranjang!");
                 printSeparator();
             } else {
                 System.out.println();
@@ -342,7 +365,7 @@ public class Main {
 
     private static void checkoutDanBayar(Pembeli pembeli, Keranjang keranjang) {
         printHeader("CHECKOUT & PEMBAYARAN");
-        
+
         double totalBelanja = keranjang.hitungTotalKeranjang();
         if (totalBelanja == 0) {
             System.out.println("[INFO] Keranjang belanja kosong. Tidak ada yang perlu dibayar.");
@@ -351,15 +374,12 @@ public class Main {
 
         keranjang.lihatKeranjang();
         System.out.println();
-        printSeparator();
-        System.out.printf("Total Belanja: Rp %.0f%n", totalBelanja);
-        printSeparator();
         System.out.print("Lanjutkan pembayaran? (ya/tidak): ");
         String konfirmasi = scanner.nextLine();
 
         if (konfirmasi.equalsIgnoreCase("ya") || konfirmasi.equalsIgnoreCase("y")) {
             pembeli.prosesPembayaran(totalBelanja);
-            
+
             // Buat objek Transaksi dan simpan
             List<Produk> produkDibeli = new ArrayList<>();
             for (Map.Entry<Produk, Integer> entry : keranjang.getDaftarProduk().entrySet()) {
@@ -367,10 +387,11 @@ public class Main {
                     produkDibeli.add(entry.getKey());
                 }
             }
-            Transaksi newTransaksi = new Transaksi("TR" + String.format("%03d", daftarTransaksi.size() + 1), pembeli.getId(), produkDibeli);
+            Transaksi newTransaksi = new Transaksi("TR" + String.format("%03d", daftarTransaksi.size() + 1),
+                    pembeli.getId(), produkDibeli);
             daftarTransaksi.add(newTransaksi);
             keranjang.clearKeranjang();
-            
+
             System.out.println();
             printSeparator();
             System.out.println("[SUCCESS] Transaksi berhasil!");
@@ -396,7 +417,7 @@ public class Main {
             System.out.println("0. Logout");
             printSeparator();
             System.out.print("Pilih menu (0-4): ");
-            
+
             try {
                 pilihan = scanner.nextInt();
                 scanner.nextLine();
@@ -442,13 +463,13 @@ public class Main {
         printHeader("TAMBAH PRODUK BARU");
         System.out.println("Masukkan detail produk:");
         System.out.println();
-        
+
         System.out.print("ID Produk     : ");
         String idProduk = scanner.nextLine();
         System.out.print("Nama Produk   : ");
         String namaProduk = scanner.nextLine();
         System.out.print("Harga (Rp)   : ");
-        
+
         double harga;
         int stok;
         try {
@@ -465,7 +486,7 @@ public class Main {
         Produk newProduk = new Produk(idProduk, namaProduk, harga, stok, penjual.getId());
         penjual.tambahProduk(newProduk);
         daftarProdukGlobal.add(newProduk);
-        
+
         System.out.println();
         printSeparator();
         System.out.println("[SUCCESS] Produk " + namaProduk + " berhasil ditambahkan!");
@@ -477,7 +498,7 @@ public class Main {
             System.out.println("[INFO] Anda belum memiliki produk untuk diedit.");
             return;
         }
-        
+
         System.out.println();
         printHeader("EDIT PRODUK");
         System.out.print("ID Produk yang ingin diedit: ");
@@ -496,19 +517,32 @@ public class Main {
             System.out.println("Harga saat ini: Rp " + produkToEdit.getHarga());
             System.out.println("Stok saat ini: " + produkToEdit.getStok());
             System.out.println();
-            
-            System.out.print("Stok baru (0 = tidak diubah): ");
+
             try {
+                System.out.print("Nama baru (enter jika tidak diubah): ");
+                String namaBaru = scanner.nextLine();
+                if (!namaBaru.trim().isEmpty()) {
+                    produkToEdit.setNamaProduk(namaBaru);
+                }
+
+                System.out.print("Harga baru (0 = tidak diubah): ");
+                double hargaBaru = scanner.nextDouble();
+                scanner.nextLine();
+                if (hargaBaru > 0) {
+                    produkToEdit.setHarga(hargaBaru);
+                }
+
+                System.out.print("Stok baru (0 = tidak diubah): ");
                 int stokBaru = scanner.nextInt();
                 scanner.nextLine();
-                
                 if (stokBaru > 0) {
                     produkToEdit.setStok(stokBaru);
-                    System.out.println();
-                    printSeparator();
-                    System.out.println("[SUCCESS] Produk " + produkToEdit.getNamaProduk() + " berhasil diupdate!");
-                    printSeparator();
                 }
+
+                System.out.println();
+                printSeparator();
+                System.out.println("[SUCCESS] Produk berhasil diperbarui!");
+                printSeparator();
             } catch (Exception e) {
                 scanner.nextLine();
                 System.out.println("[ERROR] Input tidak valid!");
@@ -526,7 +560,7 @@ public class Main {
             System.out.println("[INFO] Anda belum memiliki produk untuk dihapus.");
             return;
         }
-        
+
         System.out.println();
         printHeader("HAPUS PRODUK");
         System.out.print("ID Produk yang ingin dihapus: ");
@@ -544,7 +578,7 @@ public class Main {
             System.out.println("[WARNING] Anda akan menghapus: " + produkToDelete.getNamaProduk());
             System.out.print("Yakin ingin menghapus? (ya/tidak): ");
             String konfirmasi = scanner.nextLine();
-            
+
             if (konfirmasi.equalsIgnoreCase("ya") || konfirmasi.equalsIgnoreCase("y")) {
                 penjual.hapusProduk(idProduk);
                 daftarProdukGlobal.remove(produkToDelete);
@@ -570,17 +604,17 @@ public class Main {
             System.out.println("[INFO] Anda belum memiliki produk yang dijual.");
             return;
         }
-        
+
         printHeader("PRODUK YANG ANDA JUAL");
         System.out.printf("%-8s %-20s %-15s %-8s%n", "ID", "Nama Produk", "Harga", "Stok");
         printSeparator();
-        
+
         for (Produk p : produkSaya) {
-            System.out.printf("%-8s %-20s Rp %-12.0f %-8d%n", 
-                p.getIdProduk(), 
-                p.getNamaProduk(), 
-                p.getHarga(), 
-                p.getStok());
+            System.out.printf("%-8s %-20s Rp %-12.0f %-8d%n",
+                    p.getIdProduk(),
+                    p.getNamaProduk(),
+                    p.getHarga(),
+                    p.getStok());
         }
         printSeparator();
     }

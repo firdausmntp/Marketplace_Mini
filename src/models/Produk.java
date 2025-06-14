@@ -1,7 +1,7 @@
 package models;
 
 public class Produk {
-     private String idProduk;
+    private String idProduk;
     private String namaProduk;
     private double harga;
     private int stok;
@@ -38,4 +38,13 @@ public class Produk {
     public String getIdPenjual() {
         return idPenjual;
     }
+
+    public void setNamaProduk(String namaProduk) {
+        this.namaProduk = namaProduk;
+    }
+
+    public void setHarga(double harga) {
+        this.harga = harga;
+    }
+
 }

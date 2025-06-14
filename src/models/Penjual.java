@@ -5,9 +5,14 @@ import interfaces.KelolaProduk;
 
 public class Penjual extends User implements KelolaProduk {
     private List<Produk> daftarProdukDijual;
+
     public Penjual(String id, String nama, String email, String password, String alamat, String noTelp) {
         super(id, nama, email, password, alamat, noTelp);
         this.daftarProdukDijual = new ArrayList<>();
+    }
+
+    public String getId() {
+        return id;
     }
 
     @Override
@@ -55,6 +60,5 @@ public class Penjual extends User implements KelolaProduk {
     public List<Produk> getDaftarProdukDijual() {
         return daftarProdukDijual;
     }
-
 
 }

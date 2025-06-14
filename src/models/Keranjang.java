@@ -36,6 +36,7 @@ public class Keranjang {
             Integer jumlah = entry.getValue();
             System.out.println("- " + produk.getNamaProduk() + " (Rp " + produk.getHarga() + ") x " + jumlah);
         }
+        System.out.printf("\n\nTotal Belanja: Rp %.0f%n", hitungTotalKeranjang());
     }
 
     public double hitungTotalKeranjang() {
@@ -58,5 +59,3 @@ public class Keranjang {
         daftarProduk.clear();
     }
 }
-
-
